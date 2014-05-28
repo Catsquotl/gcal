@@ -37,22 +37,15 @@ class Shift
 
   def set_shift_times row
     @datetime = []
-    if @exception.wednesday?
-      @times = row[4],row[5]
-    else
-      @times = row[1], row[2]
-    end
-
+    @exception.wednesday? ? (@times = row[4],row[5]) : (@times = row[1], row[2])
     @times.each do |t|
-      @datetime << DateTime::strptime("#{@date} #{t} #{@utc_offset}",'%d-%m %H:%M %z') 
+    @datetime << DateTime::strptime("#{@date} #{t} #{@utc_offset}",'%d-%m %H:%M %z')
     end
-
   end
-
 end
 
 if __FILE__ == $0
-  s  = Shift.new("25-1",'dq')
+  s  = Shift.new("25-1",'vak')
   puts s.inspect
 end
 

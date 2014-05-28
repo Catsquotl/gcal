@@ -1,22 +1,35 @@
 require 'google_calendar'
-require_relative './get_shifts'
+require 'csv'
+require_relative 'credentials'
+require_relative 'shift'
 
 class Cal
 
   attr_reader :calendar
-  shiftfile = '../test/data/testevents.csv'
 
-  def initialize credentials, shiftfile = shiftfile
+  def initialize(credentials, shiftfile)
     @calendar = Google::Calendar.new(credentials)
-    list = GetShifts.new(File.expand_path shiftfile, File.dirname(__FILE__))
-    list.get_shifts
-    schedule_creator list.shifts
+    @shiftfile = shiftfile
+    @shifts = []
+    get_shifts
   end
 
-  def schedule_creator event_list
-    event_list.each do |ev|
-      @calendar.save_event ev.event
+    def get_shifts
+      CSV.foreach(File.expand_path @shiftfile, File.dirname(__FILE__)) do |shift|
+        @shifts.push Shift.new(shift[0],shift[1])
+      end
     end
 
+  def save_schedule
+    @shifts.each do |ev|
+      @calendar.save_event ev.event
+    end
   end
+end
+
+if __FILE__ == $0
+  credentials = Credentials.new.credentials
+  shiftfile = '../test/data/testevents.csv'
+  @cal = Cal.new(credentials,shiftfile)
+  #@cal.save_schedule
 end
