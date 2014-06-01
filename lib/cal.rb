@@ -5,23 +5,22 @@ require_relative 'shift'
 
 class Cal
 
-  attr_reader :calendar
+  attr_reader :calendar, :schedule
 
-  def initialize(credentials, shiftfile)
-    @calendar = Google::Calendar.new(credentials)
-    @shiftfile = shiftfile
-    @shifts = []
+  def initialize(credentials, schedule_file)
+    @calendar , @schedule_file = Google::Calendar.new(credentials), schedule_file
+    @schedule = []
     get_shifts
   end
 
     def get_shifts
-      CSV.foreach(File.expand_path @shiftfile, File.dirname(__FILE__)) do |shift|
-        @shifts.push Shift.new(shift[0],shift[1])
+      CSV.foreach(File.expand_path @schedule_file, File.dirname(__FILE__)) do |shift|
+        @schedule.push Shift.new(shift[0],shift[1])
       end
     end
 
   def save_schedule
-    @shifts.each do |ev|
+    @schedule.each do |ev|
       @calendar.save_event ev.event
     end
   end
@@ -29,7 +28,8 @@ end
 
 if __FILE__ == $0
   credentials = Credentials.new.credentials
-  shiftfile = '../test/data/testevents.csv'
-  @cal = Cal.new(credentials,shiftfile)
+  schedule_file = '../test/data/testevents.csv'
+  @cal = Cal.new(credentials,schedule_file)
+  puts @cal.schedule.inspect
   #@cal.save_schedule
 end

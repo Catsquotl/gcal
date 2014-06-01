@@ -45,7 +45,7 @@ class Shift
 end
 
 if __FILE__ == $0
-  s  = Shift.new("25-1",'vak')
+  s  = Shift.new("25-1",'di')
   puts s.inspect
 end
 
