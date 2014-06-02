@@ -7,8 +7,9 @@ class Cal
 
   attr_reader :calendar, :schedule
 
-  def initialize(credentials, schedule_file)
-    @calendar , @schedule_file = Google::Calendar.new(credentials), schedule_file
+  def initialize(opts)
+    @calendar = opts[:calendar] ||= Google::Calendar.new(Credentials.new.credentials)
+    @schedule_file = opts[:schedule_file]
     @schedule = []
     get_shifts
   end
