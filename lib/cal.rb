@@ -26,11 +26,3 @@ class Cal
     end
   end
 end
-
-if __FILE__ == $0
-  credentials = Credentials.new.credentials
-  schedule_file = '../test/data/testevents.csv'
-  @cal = Cal.new(credentials,schedule_file)
-  puts @cal.schedule.inspect
-  #@cal.save_schedule
-end
