@@ -1,7 +1,7 @@
 gcal
 ====
 
-Add work roster to google calendar
+Add a work roster to google calendar.
 
 
 A small program to get all my irregular work shifts into google calendar from a csv file.
