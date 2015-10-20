@@ -1,6 +1,6 @@
 require 'google_calendar'
 require 'csv'
-require_relative 'credentials'
+require_relative '../data/credentials'
 require_relative 'shift'
 
 class Cal
@@ -8,7 +8,7 @@ class Cal
   attr_reader :calendar, :schedule
 
   def initialize(opts)
-    @calendar = opts[:calendar] ||= Google::Calendar.new(Credentials.new.credentials)
+    @calendar = opts[:calendar] ||= Google::Calendar.new(Credential::cred)
     @schedule_file = opts[:schedule_file]
     @schedule = []
     get_shifts

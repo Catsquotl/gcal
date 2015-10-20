@@ -1,26 +1,20 @@
 require_relative '../test_helper'
 require_relative '../lib/cal'
-require_relative '../lib/credentials'
+require_relative '../data/credentials'
 
-describe Cal do
+class TestCal < Minitest::Test
 
-  before do
-    #credentials = Credentials.new.credentials
+  def setup
+    credentials = Credential.new
     @shiftfile = '../test/data/testevents.csv'
     @cal = Cal.new({:schedule_file => @shiftfile})
   end
-  
-  it 'must have a valid Google::Calendar object' do
-    @cal.calendar.must_be_instance_of Google::Calendar
+
+  def test_Google_calendar_is_present
+    assert_kind_of Google::Calendar, @cal.calendar
   end
 
-  it 'should get a list of shifts' do
-    @cal.schedule[0].must_be_instance_of Shift
+  def test_cal_has_a_shiftfile
+    refute_empty @cal.schedule
   end
-
-  it 'should send a create event to the calendar for each shift' do
-  end
-
-
 end
-

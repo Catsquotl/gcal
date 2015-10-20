@@ -13,11 +13,11 @@ class Shift
     create_shift
   end
 
-  def set_event 
+  def set_event
     @event = Google::Event.new(title: @shift_code,
                                start_time:@datetime[0],
                                end_time: @datetime[1]
-                              ) 
+                              )
   end
 
   private
@@ -37,10 +37,9 @@ class Shift
 
   def set_shift_times row
     @datetime = []
-    @exception.wednesday? ? (@times = row[4],row[5]) : (@times = row[1], row[2])
+    @times = row[1], row[2]
     @times.each do |t|
     @datetime << DateTime::strptime("#{@date} #{t} #{@utc_offset}",'%d-%m %H:%M %z')
     end
   end
 end
-
