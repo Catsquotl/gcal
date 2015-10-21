@@ -17,10 +17,10 @@ class Testshift < MiniTest::Test
 
   def must_set_correct_DateTimes_for_Google_Events
     @sh.event.title.must_equal 'DI'
-    @sh.event.start_time.must_equal DateTime.new(2014,1,25,7,30,0,'+2').to_s
-    @sh.event.end_time.must_equal DateTime.new(2014,1,25,15,15,0,'+2').to_s
-    @ex.event.start_time.must_equal DateTime.new(2014,5,28,7,30,0,'+2').to_s
-    @ex.event.end_time.must_equal DateTime.new(2014,5,28,15,15,0,'+2').to_s
-    @exc.event.end_time.must_equal DateTime.new(2014,5,27,16,30,0,'+2').to_s
+    @sh.event.start_time.must_equal DateTime.new(2014,1,25,7,30,0).to_s
+    @sh.event.end_time.must_equal DateTime.new(2014,1,25,15,15,0).to_s
+    @ex.event.start_time.must_equal DateTime.new(2014,5,28,7,30,0).to_s
+    @ex.event.end_time.must_equal DateTime.new(2014,5,28,15,15,0).to_s
+    @exc.event.end_time.must_equal DateTime.new(2014,5,27,16,30,0).to_s
   end
 end

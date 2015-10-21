@@ -3,7 +3,7 @@ require_relative 'cal'
 puts 'Getting Calendar'
 puts 'Please enter the path to your new schedule'
 
-@shiftfile = 'rooster.csv' || $stdin.gets.chomp
+@shiftfile = $stdin.gets.chomp
 
 begin
   raise ArgumentError unless File.exist?(@shiftfile)
@@ -12,5 +12,4 @@ rescue
 end
 
 now = Cal.new({:schedule_file => "#{File.expand_path @shiftfile}"})
-
 now.save_schedule

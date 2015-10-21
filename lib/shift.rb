@@ -9,7 +9,6 @@ class Shift
     @shift_code =  shift.upcase
     @date = date
     @exception = DateTime::strptime("#{date}",'%d-%m')
-    @utc_offset = '+2'
     create_shift
   end
 
@@ -39,7 +38,7 @@ class Shift
     @datetime = []
     @times = row[1], row[2]
     @times.each do |t|
-    @datetime << DateTime::strptime("#{@date} #{t} #{@utc_offset}",'%d-%m %H:%M %z')
+    @datetime << Time::strptime("#{@date} #{t}",'%d-%m %H:%M')
     end
   end
 end
